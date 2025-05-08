@@ -17,17 +17,18 @@ void setup() {
   pinMode(relayPin, OUTPUT);
   pinMode(ledPin, OUTPUT);
   pinMode(switchPin, INPUT_PULLUP);
-  
+
   // Read the last saved state from EEPROM at the specified address.
   // EEPROM.read() returns a byte (0-255). We stored 0 for off and 1 for on.
   byte savedState = EEPROM.read(stateEEPROMAddress);
+  Serial.println(savedState);
 
   // Set the relayState variable based on the saved state.
   // If savedState is 1, relayState becomes true. Otherwise, it's false.
   relayState = (savedState == 1);
 
-  digitalWrite(relayPin, LOW);  // Start with relay and LED off
-  digitalWrite(ledPin, LOW);
+  digitalWrite(relayPin, relayState);  // Start with relay and LED off
+  digitalWrite(ledPin, relayState);
 }
 
 void loop() {
